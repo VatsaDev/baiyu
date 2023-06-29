@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
+
+* {
+  font-family: 'Space Mono', monospace;
+  background: #fff;
+  color: #000;
+}
+
+.title {
+  text-align: center;
+  font-size: 72px;
+  color: #000;
+  text-decoration: underline;
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baiyu: AI adventures</title>
+    <link rel="stylesheet" href="static/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+      integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <h1 class="title">Baiyu!</h1>
+    <p style="text-align: center; font-size: 20px">The Dumpling Warrior!</p>
+    <img
+      src="static/dumpling.jpeg"
+      width="200px"
+      height="200px"
+      style="position: absolute; top: 0%; left: 0%"
+    />
+    <p style="width: 60%; margin: auto; text-align: center">
+      Baiyu is a skilled Hero who hails from the Village Hidden in the
+      Mountains. He is a master warrior, who fights a dragon every week. He has
+      a cool sword that flew out of an erupting volcano; He has found many
+      treasures and brought them back to his village.
+    </p>
+    <br /><br />
+    <h2 style="text-align: center"><u> StoryTeller Tara!</u></h2>
+    <p style="width: 60%; margin: auto; text-align: center">
+      Tara is a friend of baiyu, and she remebers every adventure Baiyu ever
+      had!
+      <br />
+      Ask her for a story
+    </p>
+    <img
+      src="static/tara.png"
+      alt="tara"
+      style="
+        margin-left: 44%;
+        margin-right: 44%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+      "
+    />
+    <div id="storyArea" style="margin: auto; width: 40%">
+      <input
+        type="text"
+        id="storybox"
+        placeholder="ask about when..."
+        style="width: 100%; padding: 5px"
+      />
+    </div>
+    <button type="button" id="taraTell">Get the story</button>
+    <div id="output"></div>
+    <br /><br />
+    <p>&nbsp;© Vatsa Pandey 2023-present, all rights reserved</p>
+    <script charset="utf-8" type="module">
+      import { pipeline } from "https://cdn.jsdelivr.net/npm/@xenova/transformers@2.3.0";
+
+      let storyTeller = await pipeline(
+        "text2text-generation",
+        //"https://huggingface.co/Xenova/LaMini-Flan-T5-783M"
+      );
+
+      async function story() {
+        let result = await poet(document.getElementById("storybox").value, {
+          max_new_tokens: 200,
+          temperature: 0.9,
+          repetition_penalty: 2.0,
+          no_repeat_ngram_size: 3,
+        });
+
+        console.log(result);
+        document.getElementById("output").innerHTML = result;
+      }
+      
+      document.querySelector("#taraTell").addEventListener("click", story());    
+    </script>
+  </body>
+</html>
